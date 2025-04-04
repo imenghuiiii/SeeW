@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alat Jahitan - Drag & Drop Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            background-image: url('GAMBAR/background.jpg'); /* Replace with your own background image URL */
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 90px;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        #instruction {
+            font-size: 60px;
+            color: #08027d;
+            margin-bottom: 20px;
+        }
+
+        .game-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px auto;
+            width: 90%;
+        }
+
+        .drop-zone {
+            background-color: #fff;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 100px;
+            text-align: center;
+            font-size: 50px;
+            color: #666;
+        }
+
+        .drop-zone.correct {
+            border-color: #28a745;
+            color: #28a745;
+        }
+
+        .drop-zone.wrong {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+
+        .draggable {
+            width: 200px;
+            cursor: grab;
+            margin: 10px auto;
+        }
+
+        .game-controls {
+            margin-top: 20px;
+        }
+
+        #result {
+            font-size: 70px;
+            color: #333;
+        }
+
+        .button {
+            font-size: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .next-button {
+            font-size: 50px;
+            padding: 20px 40px;
+            margin: 30px auto;
+            background-color: #f4a61e; /* 蓝色 */
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: block; /* 居中显示 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Alat Jahitan - Drag & Drop Game</h1>
+    <div id="instruction">Pilih dan letak gambar ke kotak yang sepatutnya untuk melengkapkan padanan.</div>
+    <div class="game-container" id="dropContainer">
+        <!-- Drop zones -->
+        <div class="drop-zone" data-name="Pita Ukur">Pita Ukur</div>
+        <div class="drop-zone" data-name="Kapur Tukang Jahit">Kapur Tukang Jahit</div>
+        <div class="drop-zone" data-name="Kertas Karbon Tukang Jahit">Kertas Karbon Tukang Jahit</div>
+        <div class="drop-zone" data-name="Pembaris">Pembaris</div>
+        <div class="drop-zone" data-name="Roda Surih">Roda Surih</div>
+        <div class="drop-zone" data-name="Jarum Peniti">Jarum Peniti</div>
+        <div class="drop-zone" data-name="Gunting Fabrik">Gunting Fabrik</div>
+        <div class="drop-zone" data-name="Gunting Kertas">Gunting Kertas</div>
+        <div class="drop-zone" data-name="Jarum Jahit Tangan">Jarum Jahit Tangan</div>
+        <div class="drop-zone" data-name="Mesin Jahit Mini">Mesin Jahit Mini</div>
+        <div class="drop-zone" data-name="Mesin Jahit Tangan">Mesin Jahit Tangan</div>
+        <div class="drop-zone" data-name="Peretas Jahitan">Peretas Jahitan</div>
+    </div>
+
+    <div class="game-container" id="dragContainer">
+        <!-- Draggable images -->
+        <img src="GAMBAR/pita ukur.jpg" class="draggable" draggable="true" data-name="Pita Ukur" alt="Pita Ukur">
+        <img src="GAMBAR/batu kapur.jpg" class="draggable" draggable="true" data-name="Kapur Tukang Jahit" alt="Kapur Tukang Jahit">
+        <img src="GAMBAR/kertas karbon.jpg" class="draggable" draggable="true" data-name="Kertas Karbon Tukang Jahit" alt="Kertas Karbon Tukang Jahit">
+        <img src="GAMBAR/pembaris.jpg" class="draggable" draggable="true" data-name="Pembaris" alt="Pembaris">
+        <img src="GAMBAR/roda surih.jpg" class="draggable" draggable="true" data-name="Roda Surih" alt="Roda Surih">
+        <img src="GAMBAR/jarum peniti.jpg" class="draggable" draggable="true" data-name="Jarum Peniti" alt="Jarum Peniti">
+        <img src="GAMBAR/gunting fabrik.jpg" class="draggable" draggable="true" data-name="Gunting Fabrik" alt="Gunting Fabrik">
+        <img src="GAMBAR/gunting kertas.jpg" class="draggable" draggable="true" data-name="Gunting Kertas" alt="Gunting Kertas">
+        <img src="GAMBAR/jarum jahit tangan.jpg" class="draggable" draggable="true" data-name="Jarum Jahit Tangan" alt="Jarum Jahit Tangan">
+        <img src="GAMBAR/mesin jahit mini.jpg" class="draggable" draggable="true" data-name="Mesin Jahit Mini" alt="Mesin Jahit Mini">
+        <img src="GAMBAR/mesin jahit tangan.jpg" class="draggable" draggable="true" data-name="Mesin Jahit Tangan" alt="Mesin Jahit Tangan">
+        <img src="GAMBAR/peretas jahitan.jpg" class="draggable" draggable="true" data-name="Peretas Jahitan" alt="Peretas Jahitan">
+    </div>
+
+    <div class="game-controls">
+        <p id="result"></p> <!-- Hidden result, only displayed when all questions are completed -->
+        <!-- Seterusnya button -->
+        <button class="next-button" onclick="nextPage()">Seterusnya</button>
+    </div>
+
+    <!-- Audio elements -->
+    <audio id="correctSound" src="audio/correct.mp3"></audio>
+    <audio id="wrongSound" src="audio/wrong.mp3"></audio>
+    <audio id="instructionAudio" src="audio/instruction.mp3"></audio> <!-- Instruction audio -->
+    <audio id="cheerSound" src="audio/crowd cheer.mp3"></audio> <!-- Crowd cheer audio -->
+
+    <script>
+        const draggables = document.querySelectorAll('.draggable');
+        const dropZones = document.querySelectorAll('.drop-zone');
+        const correctSound = document.getElementById('correctSound');
+        const wrongSound = document.getElementById('wrongSound');
+        const instructionAudio = document.getElementById('instructionAudio');
+        const cheerSound = document.getElementById('cheerSound');
+        const dragContainer = document.getElementById('dragContainer');
+        const nextButton = document.querySelector('.next-button'); // Reference to the "Seterusnya" button
+        let correctCount = 0;
+    
+        // Play instruction audio
+        window.onload = () => {
+            instructionAudio.play();
+            randomizeImages(); // Call randomize images
+        };
+    
+        // Randomize image order
+        function randomizeImages() {
+            const images = Array.from(dragContainer.children);
+            images.sort(() => Math.random() - 0.5); // Random sorting
+            images.forEach(img => dragContainer.appendChild(img));
+        }
+    
+        draggables.forEach(draggable => {
+            draggable.addEventListener('dragstart', () => {
+                draggable.classList.add('dragging');
+            });
+    
+            draggable.addEventListener('dragend', () => {
+                draggable.classList.remove('dragging');
+            });
+        });
+    
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', e => {
+                e.preventDefault();
+            });
+    
+            zone.addEventListener('drop', e => {
+                e.preventDefault();
+                const draggedElement = document.querySelector('.dragging');
+                const draggedName = draggedElement.dataset.name;
+                const dropZoneName = zone.dataset.name;
+    
+                if (draggedName === dropZoneName) {
+                    zone.classList.add('correct');
+                    correctSound.play();
+                    correctCount++;
+                } else {
+                    zone.classList.add('wrong');
+                    wrongSound.play();
+                }
+    
+                draggedElement.remove(); // Remove image after drop
+                checkCompletion();
+            });
+        });
+    
+        function checkCompletion() {
+            const allDropped = document.querySelectorAll('.draggable').length === 0;
+            if (allDropped) {
+                cheerSound.play(); // Play crowd cheer audio
+                setTimeout(() => alert(`Tahniah! Anda telah menjawab ${correctCount} soalan dengan betul!`), 500); // Display final score
+                nextButton.style.visibility = 'visible'; // Make the "Seterusnya" button visible
+            }
+        }
+    
+        // Function for "Seterusnya" button to go to the next page
+        function nextPage() {
+            window.location.href = 'nextPage.html'; // Replace with the actual next page URL
+        }
+    </script>
+</body>
+</html>

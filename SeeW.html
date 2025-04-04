@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>SeeW Project</title>
+  <style> 
+    body {
+      font-family: Arial, sans-serif; 
+      background: url('GAMBAR/background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+      text-align: center;
+    }
+
+    h1 {
+      color: #FFD700;
+      font-size: 80px;
+      margin-bottom: 20px;
+      text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9);
+    }
+
+    h2 {
+      color: #fb6247;
+      font-size: 64px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    }
+
+    #instruction {
+      font-size: 80px;
+      font-weight: bold;
+      color: rgb(234, 154, 6);
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+      margin-bottom: 20px;
+    }
+
+    #startButton, #nextButton {
+      font-size: 32px;
+      padding: 20px 40px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+      display: inline-block;
+    }
+
+    #startButton:hover, #nextButton:hover {
+      background-color: #218838;
+    }
+
+    #gameContainer {
+      display: none;
+      position: relative;  /* Make it position absolute */
+      top: 30%; /* Position it in the center */
+      left: 50%; /* Position it in the center */
+      transform: translate(-50%, -50%); /* Offset it to actually center */
+      width: 800px;
+      height: 600px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      margin-top: 50px;
+    }
+
+    #needle {
+      width: 100px;
+      height: 100px;
+      background: url('GAMBAR/needle.jpg') no-repeat center;
+      background-size: cover;
+      position: absolute;
+      cursor: grab;
+    }
+
+    .stitch-line {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background-color: white;
+      border-radius: 50%;
+      box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+    }
+
+    .stitched {
+      background-color: red;
+    }
+
+    #nextButton {
+      margin-top: 150px;
+      display: none; /* Initially hidden */
+    }
+  </style>
+</head>
+<body>
+  <div style="text-align: center;">
+    <h1>🎮 SEEW PROJECT</h1>
+    <h2>PEMBELAJARAN JAHITAN TAHUN 5</h2>
+    <p id="instruction">Gerakkan tetikus anda dan lengkapkan semua titik jahitan 😊</p>
+    <button id="startButton">Seterusnya</button>
+    <div id="gameContainer">
+      <div id="needle"></div>
+    </div>
+    <button id="nextButton" onclick="redirectToNextPage()">Seterusnya</button> <!-- Next button with redirection -->
+  </div>
+
+  <audio id="cheerSound" src="audio/crowd cheer.mp3"></audio> <!-- Crowd cheer audio -->
+
+  <script>
+    const needle = document.getElementById('needle');
+    const container = document.getElementById('gameContainer');
+    const startButton = document.getElementById('startButton');
+    const nextButton = document.getElementById('nextButton');
+    const cheerSound = document.getElementById('cheerSound');
+    let isDragging = false;
+    let stitchPoints = [];
+    let currentStitchIndex = 0;
+
+    function generateStitchPath() {
+      stitchPoints = [
+        { x: 100, y: 50 }, { x: 200, y: 50 }, { x: 300, y: 80 },
+        { x: 400, y: 120 }, { x: 500, y: 180 }, { x: 550, y: 250 },
+        { x: 500, y: 320 }, { x: 450, y: 380 }, { x: 400, y: 450 },
+        { x: 300, y: 500 }, { x: 200, y: 500 }, { x: 100, y: 450 },
+        { x: 50, y: 380 }, { x: 0, y: 250 }, { x: 50, y: 180 }
+      ];
+
+      stitchPoints.forEach((point, index) => {
+        let dot = document.createElement('div');
+        dot.classList.add('stitch-line');
+        dot.style.left = point.x + 'px';
+        dot.style.top = point.y + 'px';
+        dot.dataset.stitch = 'false';
+        dot.id = 'stitch-' + index;
+        container.appendChild(dot);
+      });
+    }
+
+    function startDrag() {
+      isDragging = true;
+    }
+
+    function stopDrag() {
+      isDragging = false;
+    }
+
+    function drag(e) {
+      if (!isDragging) return;
+      const rect = container.getBoundingClientRect();
+      let x = (e.clientX || e.touches[0].clientX) - rect.left - 20;
+      let y = (e.clientY || e.touches[0].clientY) - rect.top - 20;
+      x = Math.max(0, Math.min(rect.width - 40, x));
+      y = Math.max(0, Math.min(rect.height - 40, y));
+      needle.style.left = x + 'px';
+      needle.style.top = y + 'px';
+      checkStitching(x, y);
+    }
+
+    function checkStitching(x, y) {
+      let targetDot = document.getElementById(`stitch-${currentStitchIndex}`);
+      if (targetDot) {
+        const dotX = parseInt(targetDot.style.left);
+        const dotY = parseInt(targetDot.style.top);
+
+        if (Math.abs(x - dotX) < 15 && Math.abs(y - dotY) < 15 && targetDot.dataset.stitch === 'false') {
+          targetDot.classList.add('stitched');
+          targetDot.dataset.stitch = 'true';
+          currentStitchIndex++;
+        }
+        checkCompletion();
+      }
+    }
+
+    function checkCompletion() {
+      const allStitches = document.querySelectorAll('.stitch-line');
+      let allCompleted = Array.from(allStitches).every(dot => dot.dataset.stitch === 'true');
+
+      if (allCompleted) {
+        setTimeout(() => {
+          cheerSound.play(); // Play crowd cheer audio
+          alert("Tahniah! Anda telah berjaya untuk menjahit!");
+          nextButton.style.display = "inline-block"; // Show the "Seterusnya" button
+        }, 500);
+      }
+    }
+
+    function redirectToNextPage() {
+      window.location.href = "Pengenalan Alat Jahitan.html"; // Redirect to the next page
+    }
+
+    startButton.addEventListener('click', function () {
+      startButton.style.display = 'none';
+      container.style.display = 'block';
+      generateStitchPath();
+    });
+
+    needle.addEventListener('mousedown', startDrag);
+    document.addEventListener('mouseup', stopDrag);
+    document.addEventListener('mousemove', drag);
+    needle.addEventListener('touchstart', startDrag);
+    document.addEventListener('touchend', stopDrag);
+    document.addEventListener('touchmove', drag);
+  </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengenalan Alat Jahitan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('GAMBAR/background.jpg'); /* 替换为你自己的背景图片 URL */
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 100px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .instructions {
+            font-size: 70px;
+            color: #df9800;
+            margin-bottom: 30px;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            justify-content: center;
+            position: relative;
+        }
+        .item {
+            text-align: center;
+            position: relative;
+        }
+        img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+        .name {
+            font-size: 70px;
+            color: #333;
+            font-weight: bold;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .description {
+            display: none;
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 40px;
+        }
+        .item:hover .description {
+            display: block;
+        }
+        .next-button {
+            margin-top: 50px;
+            padding: 20px 40px;
+            font-size: 50px;
+            color: #fff;
+            background-color: #df9800;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .next-button:hover {
+            background-color: #c87c00;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pengenalan Alat Jahitan</h1>
+    <p class="instructions">Klik pada Nama Alat Jahitan untuk mendengar suara!</p>
+    <div class="container">
+        <div class="item">
+            <img src="GAMBAR/pita ukur.jpg" alt="Pita Ukur">
+            <div class="description">Digunakan untuk mengukur fabrik atau mengambil ukuran badan.</div>
+            <p class="name" onclick="playAudio('audio/pita ukur.mp3')">Pita Ukur</p>
+        </div>
+        <div class="item">
+            <img src="GAMBAR/batu kapur.jpg" alt="Kapur Tukang Jahit">
+            <div class="description">Digunakan untuk menanda pada fabrik.</div>
+            <p class="name" onclick="playAudio('audio/batu kapur.mp3')">Kapur Tukang Jahit</p>
+        </div>
+        <div class="item">
+            <img src="GAMBAR/kertas karbon.jpg" alt="Kertas Karbon Tukang Jahit">
+            <div class="description">Digunakan untuk memindahkan tanda pola, garisan dan motif ke fabrik dengan menggunakan roda surih.</div>
+            <p class="name" onclick="playAudio('audio/kertas karbon.mp3')">Kertas Karbon Tukang Jahit</p>
+        </div>
+        <div class="item">
+            <img src="GAMBAR/pembaris.jpg" alt="Pembaris">
+            <div class="description">Digunakan untuk mengukur dan menandakan pola.</div>
+            <p class="name" onclick="playAudio('audio/pembaris.mp3')">Pembaris</p>
+        </div>
+        <div class="item">
+            <img src="GAMBAR/roda surih.jpg" alt="Roda Surih">
+            <div class="description">Digunakan untuk memindahkan tanda pola ke fabrik.</div>
+            <p class="name" onclick="playAudio('audio/roda surih.mp3')">Roda Surih</p>
+        </div>
+        <div class="item">
+            <img src="GAMBAR/jarum peniti.jpg" alt="Jarum Peniti">
+            <div class="description">Digunakan untuk menyemat pola pada fabrik dan menetapkan dua atau lebih kepingan fabrik sebelum menjahit.</div>
+            <p class="name" onclick="playAudio('audio/jarum peniti.mp3')">Jarum Peniti</p>
+        </div>
+        <div class="item">
+            <img src="GAMBAR/gunting fabrik.jpg" alt="Gunting Fabrik">
+            <div class="description">Digunakan untuk memotong kain.</div>
+            <p class="name" onclick="playAudio('audio/gunting fabrik.mp3')">Gunting Fabrik</p>
+        </div>
+        <div class="item">
+            <img src="GAMBAR/gunting kertas.jpg" alt="Gunting Kertas">
+            <div class="description">Digunakan untuk memotong kertas bagi membentuk pola.</div>
+            <p class="name" onclick="playAudio('audio/gunting kertas.mp3')">Gunting Kertas</p>
+        </div>
+        <div class="item">
+            <img src="GAMBAR/jarum jahit tangan.jpg" alt="Jarum Jahit Tangan">
+            <div class="description">Digunakan untuk menjahit fabrik.</div>
+            <p class="name" onclick="playAudio('audio/jarum jahit tangan.mp3')">Jarum Jahit Tangan</p>
+        </div>
+        <div class="item">
+            <img src="GAMBAR/mesin jahit mini.jpg" alt="Mesin Jahit Mini">
+            <div class="description">Digunakan untuk menjahit fabrik dan menggunakan elektrik untuk berfungsi.</div>
+            <p class="name" onclick="playAudio('audio/mesin jahit mini.mp3')">Mesin Jahit Mini</p>
+        </div>
+        <div class="item">
+            <img src="GAMBAR/mesin jahit tangan.jpg" alt="Mesin Jahit Tangan">
+            <div class="description">Digunakan untuk menjahit fabrik dan menggunakannya secara manual.</div>
+            <p class="name" onclick="playAudio('audio/mesin jahit tangan.mp3')">Mesin Jahit Tangan</p>
+        </div>
+        <div class="item">
+            <img src="GAMBAR/peretas jahitan.jpg" alt="Peretas Jahitan">
+            <div class="description">Digunakan untuk menanggalkan dan membuang mata jahitan serta memotong lubang butang.</div>
+            <p class="name" onclick="playAudio('audio/peretas jahitan.mp3')">Peretas Jahitan</p>
+        </div>
+    </div>
+    <a href="Kenali Mata Jahitan.html" class="next-button">Seterusnya</a> <!-- Updated 'Seterusnya' button -->
+    <script>
+        function playAudio(file) {
+            const audio = new Audio(file); // 创建音频对象
+            audio.play(); // 播放音频
+        }
+    </script>
+</body>
+</html>
