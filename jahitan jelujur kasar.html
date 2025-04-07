@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jahitan Jelujur Kasar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #000;
+            margin: 0;
+            padding: 0;
+            background: url('GAMBAR/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-size: 18px; /* Increased font size for body */
+        }
+        header {
+            text-align: center;
+            font-size: 70px; /* Increased font size for header */
+        }
+        main {
+            padding: 70px;
+        }
+        .step {
+            margin-bottom: 30px;
+            font-size: 60px; /* Increased font size for step text */
+        }
+        .step img {
+            width: 100%;
+            max-width: 700px;
+            display: block;
+            margin: 10px auto;
+        }
+        audio {
+            display: block;
+            margin: 20px auto;
+            font-size: 20px; /* Increased font size for audio controls */
+        }
+        button {
+            font-size: 50px; /* Enlarged font size for play audio button */
+            padding: 20px 30px; /* Increased padding for button size */
+            cursor: pointer;
+            background-color: #fd992f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .next-button {
+            font-size: 50px;
+            padding: 20px 40px;
+            margin: 30px auto;
+            background-color: #f4a61e; /* 蓝色 */
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: block; /* 居中显示 */
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+        }
+        .next-button:hover {
+            background-color: #0056b3; /* 深蓝色 */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Jahitan Jelujur Kasar</h1>
+</header>
+
+<main>
+    <audio controls autoplay>
+        <source src="audio/jahitan jelujur kasar (bersedia).mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="step">
+        <h2>Langkah 1</h2>
+        <p>Jahit dari kiri ke kanan. Mulakan dengan jahitan kia. Masukkan jarum pada A dan keluarkan pada B dengan jarak 1 cm dari A.</p>
+        <img src="GAMBAR/jahitan jelujur kasar langkah 1.jpg" alt="Langkah 1">
+        <button onclick="playAudio('audio/jahitan jelujur kasar langkah 1.mp3')">🔊</button>
+    </div>
+
+    <div class="step">
+        <h2>Langkah 2</h2>
+        <p>Teruskan jahitan hingga sampai ke hujung fabrik. Matikan dengan jahitan kia</p>
+        <img src="GAMBAR/jahitan jelujur kasar langkah 2.jpg" alt="Langkah 2">
+        <button onclick="playAudio('audio/jahitan jelujur kasar langkah 2.mp3')">🔊</button>
+    </div>
+    <div class="step">
+        <h2>Langkah 3</h2>
+        <p>Jahitan jelujur kasar telah siap.</p>
+        <img src="GAMBAR/jahitan jelujur kasar langkah 3.jpg" alt="Langkah 3">
+        <button onclick="playAudio('audio/jahitan jelujur kasar langkah 3.mp3')">🔊</button>
+    </div>
+    <div class="step">
+        <h2>Apakah perbezaan antara jahitan jelujur kasar dan jahitan jelujur halus?</h2>
+        <img src="GAMBAR/jahitan jelujur (perbezaan).jpg" alt="perbezaan">
+        <button onclick="playAudio('audio/jahitan jelujur (perbezaan).mp3')">🔊</button>
+    </div>
+    
+</main>
+<a href="isi kandungan mata jahitan.html" class="next-button">Kembali</a>
+<script>
+    function playAudio(file) {
+        const audio = new Audio(file); // Create an audio object
+        audio.play(); // Play the audio
+    }
+</script>
+
+</body>
+</html>
